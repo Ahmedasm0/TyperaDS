@@ -39,7 +39,7 @@ public class Results implements Runnable {
 
 
     public Results(String fileName, int scriptNum , String script) {
-        path = "C:/Users/Ahmed/IdeaProjects/Idea/src/com/company/server/texts/" + fileName + ".xml";
+        path = fileName + ".xml";
         this.script = script;
         this.scriptNum = scriptNum;
         paths.add("text1.xml");
