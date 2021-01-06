@@ -1,8 +1,10 @@
 package com.company.server;
 
-import com.company.Message;
-import com.company.Serialization;
-import com.company.User;
+
+import com.company.objects.Message;
+import com.company.objects.Serialization;
+import com.company.objects.User;
+
 import static com.company.server.ServerThreadPool.accounts;
 import static com.company.server.ServerThreadPool.*;
 
@@ -46,7 +48,9 @@ public class ServerSocketTask implements Runnable, Serializable{
                 }
                 closeResources();
             }else if(check == 2L){
-                write("Waiting for your teammate to join: ", 2L);
+                write("Waiting for a teammate to join: ", 2L);
+                addActive();
+
                 waiting();
                 try {
                     Thread.sleep(500000); // delay the thread. Time delay = size of request string in seconds
@@ -75,10 +79,10 @@ public class ServerSocketTask implements Runnable, Serializable{
             });
             if(check.get()) {
                 addAccount(user);
-                reply = "Registration Successful";
+                reply = "Your registration was Successful, you can now login.";
             }
             else{
-                reply = "Already Exists, Try a different username";
+                reply = "Username already Exists, Try to be more creative.";
             }
             l = 1L;
         }else if(request.getSerialVersionUID() == 2L){
@@ -89,17 +93,16 @@ public class ServerSocketTask implements Runnable, Serializable{
                 }
             });
             if(check.get()) {
-                reply = "login Successful";
+                reply = "login Successful. Welcome back.";
                 l = 2L;
                 setCheck(l);
                 setUsername(user.getUsername());
-                addActive();
                 Thread.currentThread().setName(username);
                 System.out.println("Thread details; " + Thread.currentThread().getName());
 
             }
             else{
-                reply = "Incorrect username/password";
+                reply = "Wrong credentials, please check your inputs.";
                 l = 1L;
 
             }

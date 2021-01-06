@@ -1,11 +1,10 @@
 package com.company.client;
 
-import com.company.Message;
-import com.company.Serialization;
-import com.company.User;
+import com.company.objects.Message;
+import com.company.objects.Serialization;
+import com.company.objects.User;
 import com.company.objects.Content;
 import com.company.objects.Result;
-import com.company.objects.Team;
 import com.company.objects.TeamResult;
 
 
@@ -55,22 +54,22 @@ public class ClientSocketTask implements Runnable{
             System.out.println("Client Thread Booted");
             logSys();
             Message response = read();
-            System.out.println(response.getSender() + ", " + response.getMessage() + ", " + response.getSerialVersionUID());
+            System.out.println(response.getSender() + ", " + response.getMessage());
             response = read();
-            System.out.println(response.getSender() + ", " + response.getMessage() + ", " + response.getSerialVersionUID());
+            System.out.println(response.getSender() + ", " + response.getMessage());
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("Enter Ready");
+            System.out.println("Enter 'ready' when you're ready to play the game.");
             String isReady = input();
             write(isReady, 3L);
             response = read();
             Content content = (Content) Serialization.deSerialize(response.getMessage());
             System.out.println(response.getSender() + ", " + content.getQueueID() + ", " + content.getScript()+ ", " + response.getSerialVersionUID());
             if(content.getOperation().contains("launch")){
-                System.out.println("Enter the text as fast as possible");
+                System.out.println("Enter the text below as fast as you can.");
                 DownCounter downCounter = new DownCounter(response.getSerialVersionUID());
                 if(content.getQueueID() == 0){
 
@@ -107,9 +106,9 @@ public class ClientSocketTask implements Runnable{
                 response = read();
                 TreeMap<Double, TeamResult> scores = new TreeMap<>();
                 scores = (TreeMap<Double, TeamResult>) Serialization.deSerialize(response.getMessage());
-
+                int counter = 1;
                 for (Map.Entry<Double, TeamResult> entry : scores.entrySet())
-                    System.out.println("Score: " + entry.getKey() +
+                    System.out.println(counter + "Score: " + entry.getKey() +
                             ", Players:  " + entry.getValue().getMember1() + ", " + entry.getValue().getMember2());
 
                 if(response.getSerialVersionUID() == 7L){
@@ -137,7 +136,7 @@ public class ClientSocketTask implements Runnable{
             User user = new User();
             long l = 0;
             while (true) {
-                System.out.println("Enter 'Sign up', or 'Login': ");
+                System.out.println("New here? Enter 'Sign up', or 'Login' if you already have an account. ");
                 String operation = input().toLowerCase();
                 if (operation.equals("sign up")) {
                     l = 1L;
@@ -150,11 +149,11 @@ public class ClientSocketTask implements Runnable{
                 }
             }
             System.out.println(l);
-            System.out.println("Enter a Username: ");
+            System.out.println("Please enter a Username: ");
             String username = input().toLowerCase();
             user.setUsername(username);
             setUsername(username);
-            System.out.println("Enter a Password: ");
+            System.out.println("Please enter a Password: ");
             String pass = input();
             user.setPassword(pass);
             startConnection();

@@ -1,8 +1,8 @@
 package com.company.server;
 
-import com.company.User;
-import com.company.objects.Team;
 
+
+import com.company.objects.User;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;

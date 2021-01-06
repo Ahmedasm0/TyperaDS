@@ -1,6 +1,6 @@
 package com.company.server;
 
-import com.company.Serialization;
+import com.company.objects.Serialization;
 import com.company.objects.Team;
 import com.company.objects.TeamResult;
 
@@ -10,8 +10,6 @@ import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-
-import static com.company.server.ServerThreadPool.threads;
 
 public class TeamsSorter implements Runnable {
     public static CopyOnWriteArrayList<Team> teamResults = new CopyOnWriteArrayList<Team>();
@@ -24,7 +22,6 @@ public class TeamsSorter implements Runnable {
     public static void main() {
         Thread thread = new Thread(new TeamsSorter());
         thread.start();
-        System.out.println("Exit the main");
     }
 
 

@@ -1,7 +1,5 @@
 package com.company.objects;
 
-import com.company.server.ServerSocketTask;
-
 import java.io.Serializable;
 
 public class TeamResult implements Serializable {

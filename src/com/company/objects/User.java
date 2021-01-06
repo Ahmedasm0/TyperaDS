@@ -1,4 +1,4 @@
-package com.company;
+package com.company.objects;
 
 import java.io.Serializable;
 

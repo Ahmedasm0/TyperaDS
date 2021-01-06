@@ -1,18 +1,9 @@
 package com.company.server;
-import com.company.User;
 import com.company.objects.Team;
-
 import java.io.IOException;
-import java.net.Socket;
-import java.util.Date;
-import java.util.Map;
-import java.util.Random;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import static com.company.server.ServerThreadPool.*;
 import static com.company.server.ServerThreadPool.active;
 
 
@@ -29,7 +20,6 @@ public class AssignTeams implements Runnable {
     public static void main() {
         Thread thread = new Thread(new AssignTeams());
         thread.start();
-        System.out.println("Exit the main");
     }
 
     @Override
@@ -59,8 +49,8 @@ public class AssignTeams implements Runnable {
                 }
 
                 try {
-                    logged.get(logged.size()-2).write("Your teammate is: "+team.getMember2().getUsername() + ", teamID is: " + team.getTeamID(), 3L);
-                    logged.get(logged.size()-1).write("Your teammate is: "+team.getMember1().getUsername()+", teamID is: " + team.getTeamID(), 3L);
+                    logged.get(logged.size()-2).write("You were assigned to teammate: "+team.getMember2().getUsername()+",Your teamID is: "+ team.getTeamID(), 3L);
+                    logged.get(logged.size()-1).write("You were assigned to teammate: "+team.getMember1().getUsername()+",Your teamID is: "+ team.getTeamID(), 3L);
 
                 } catch (IOException e) {
                     e.printStackTrace();

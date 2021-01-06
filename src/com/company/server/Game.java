@@ -1,12 +1,8 @@
 package com.company.server;
 
-import com.company.Message;
-import com.company.Serialization;
-import com.company.User;
+
+import com.company.objects.*;
 import com.company.client.Results;
-import com.company.objects.Content;
-import com.company.objects.Result;
-import com.company.objects.Team;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,13 +32,13 @@ public class Game implements Runnable{
     public void run() {
         m1.setLatch(latch);
         m2.setLatch(latch);
-        System.out.println("Waiting for players to be ready.");
+        System.out.println("Waiting for both players to be ready.");
         try {
             latch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Players are ready");
+        System.out.println("All players are ready.... Launching the game.");
         ArrayList<Integer> select = new ArrayList<Integer>(random());
         m1.setScriptID(select.get(0));
         m2.setScriptID(select.get(1));
@@ -72,11 +68,11 @@ public class Game implements Runnable{
                 score = (result1.getTime() + result2.getTime()) / 2;
                 Team team = new Team(m1,m2,m1.getTeamId(),score);
                 teamResults1.put(team.getScore(),team);
-                m1.write("Good job: your team average score is: " + score, 1L);
-                m2.write("Good job: your team average score is: " + score, 1L);
+                m1.write("Good job: your team score is: " + score, 1L);
+                m2.write("Good job: your team score is: " + score, 1L);
             }else{
-                m1.write("Your team is disqualified,  Try again later!", 1L);
-                m2.write("Your team is disqualified,  Try again later!", 1L);
+                m1.write("Your team is disqualified, please Try again later!", 1L);
+                m2.write("Your team is disqualified, please Try again later!", 1L);
             }
 
 
