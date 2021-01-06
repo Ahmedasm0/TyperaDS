@@ -67,18 +67,17 @@ public class ClientSocketTask implements Runnable{
             write(isReady, 3L);
             response = read();
             Content content = (Content) Serialization.deSerialize(response.getMessage());
-            System.out.println(response.getSender() + ", " + content.getQueueID() + ", " + content.getScript()+ ", " + response.getSerialVersionUID());
             if(content.getOperation().contains("launch")){
                 System.out.println("Enter the text below as fast as you can.");
                 DownCounter downCounter = new DownCounter(response.getSerialVersionUID());
                 if(content.getQueueID() == 0){
-
                     try {
                         Thread.sleep(8000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     System.out.println(content.getScript());
+                    write("count", 4L);
                     long start = System.nanoTime();
                     String text = input();
                     long elapsedTime = System.nanoTime() - start;
@@ -108,7 +107,7 @@ public class ClientSocketTask implements Runnable{
                 scores = (TreeMap<Double, TeamResult>) Serialization.deSerialize(response.getMessage());
                 int counter = 1;
                 for (Map.Entry<Double, TeamResult> entry : scores.entrySet())
-                    System.out.println(counter + "Score: " + entry.getKey() +
+                    System.out.println(counter + ".  Team ID: "+ entry.getValue().getTeamID() +"Score: " + entry.getKey() +
                             ", Players:  " + entry.getValue().getMember1() + ", " + entry.getValue().getMember2());
 
                 if(response.getSerialVersionUID() == 7L){

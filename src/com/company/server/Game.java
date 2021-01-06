@@ -13,13 +13,23 @@ import static com.company.server.TeamsSorter.teamResults1;
 
 public class Game implements Runnable{
     private final CountDownLatch latch = new CountDownLatch(2);
-    private final ServerSocketTask m1;
-    private final ServerSocketTask m2;
+    private ServerSocketTask m1;
+    private ServerSocketTask m2;
     private ArrayList<String> scripts = new ArrayList<String>();
 
     public Game(ServerSocketTask m1, ServerSocketTask m2) {
-        this.m1 = m1;
-        this.m2 = m2;
+        Random rndm = new Random();
+        int x = rndm.nextInt(1 - 0 + 1);
+        if(x == 0){
+            this.m1 = m1;
+            this.m2 = m2;
+        }else if(x == 1){
+            this.m1 = m2;
+            this.m2 = m1;
+        }
+
+
+
         scripts.add("The European languages are members of the same family. Their separate existence.");
         scripts.add("Far far away, behind the word mountains, far from the countries Vokalia and Cons");
         scripts.add("A wonderful serenity has taken possession of my entire soul, like these sweet mo");
@@ -42,6 +52,8 @@ public class Game implements Runnable{
         ArrayList<Integer> select = new ArrayList<Integer>(random());
         m1.setScriptID(select.get(0));
         m2.setScriptID(select.get(1));
+
+
         m1.setQueueId(0);
         m2.setQueueId(1);
         Content content1 = new Content(m1.getQueueId(),"launch", scripts.get(m1.getScriptID()));
@@ -51,12 +63,14 @@ public class Game implements Runnable{
             m1.write(Serialization.serialize(content1), 3000L);
             m2.write(Serialization.serialize(content2), 3000L);
             Message message1 = m1.read();
+            long start = System.nanoTime();
+            message1 = m1.read();
             m2.write("go", 4L);
             Result result1 = (Result) Serialization.deSerialize(message1.getMessage());
-            System.out.println(result1.getScript() +  ", " + result1.getTime());
             Message message2 = m2.read();
+            long elapsedTime = System.nanoTime() - start;
+            double seconds = (double)elapsedTime / 1_000_000_000.0;
             Result result2 = (Result) Serialization.deSerialize(message2.getMessage());
-            System.out.println(result2.getScript() +  ", " + result2.getTime());
 
             Results checkResult1 = new Results(m1.getUsername(),m1.getScriptID(),result1.getScript());
             checkResult1.run();
@@ -65,11 +79,14 @@ public class Game implements Runnable{
 
             double score = 0;
             if(checkResult1.isValid() && checkResult2.isValid()){
-                score = (result1.getTime() + result2.getTime()) / 2;
-                Team team = new Team(m1,m2,m1.getTeamId(),score);
+                score = (result1.getTime() + result2.getTime());
+                System.out.println("Time counted by clients: " + score);
+                System.out.println("Time counted by Server: " + seconds);
+                Team team = new Team(m1,m2,m1.getTeamId(),seconds);
+
                 teamResults1.put(team.getScore(),team);
-                m1.write("Good job: your team score is: " + score, 1L);
-                m2.write("Good job: your team score is: " + score, 1L);
+                m1.write("Good job: your team score is: " + seconds, 1L);
+                m2.write("Good job: your team score is: " + seconds, 1L);
             }else{
                 m1.write("Your team is disqualified, please Try again later!", 1L);
                 m2.write("Your team is disqualified, please Try again later!", 1L);
