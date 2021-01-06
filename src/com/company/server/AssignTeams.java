@@ -24,7 +24,7 @@ import static com.company.server.ServerThreadPool.active;
 public class AssignTeams implements Runnable {
     public static CopyOnWriteArrayList<Team> teams = new CopyOnWriteArrayList<Team>();
 
-    private static ExecutorService thPoolGame = Executors.newFixedThreadPool(5); //Create a pool of threads
+    private static ExecutorService thPoolGame = Executors.newFixedThreadPool(50); //Create a pool of threads
 
     public static void main() {
         Thread thread = new Thread(new AssignTeams());
@@ -68,7 +68,11 @@ public class AssignTeams implements Runnable {
                 thPoolGame.execute(new Game(team.getMember1(),team.getMember2()));
 
 
-
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
             }
 

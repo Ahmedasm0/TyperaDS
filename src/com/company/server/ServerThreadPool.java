@@ -20,7 +20,7 @@ public class ServerThreadPool {
 
 	private static final Object lockAccounts = new Object();
 	private static final Object lockActive = new Object();
-	private static final ExecutorService thPoolServer = Executors.newFixedThreadPool(10); //Create a pool of threads
+	private static final ExecutorService thPoolServer = Executors.newFixedThreadPool(100); //Create a pool of threads
 	public static void main(String[] args) throws IOException {
 		//Create a Server Socket
 		ServerSocket serverSocket = new ServerSocket(2021); //Start a new server socket on port 1234

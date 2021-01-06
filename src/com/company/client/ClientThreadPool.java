@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 
 public class ClientThreadPool {
 
-	private static final ExecutorService thPoolClient = Executors.newFixedThreadPool(5); //Create a pool of threads
+	private static final ExecutorService thPoolClient = Executors.newFixedThreadPool(20); //Create a pool of threads
 
 	public static void main(String[] args) throws UnknownHostException, IOException {
 

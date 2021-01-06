@@ -14,7 +14,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ServerSocketTask implements Runnable, Serializable{
-    private final Socket connection;  // Create Socket
+    private  Socket connection;  // Create Socket
     private ArrayList<ServerSocketTask> threads1 = new ArrayList<>();
     private final ObjectOutputStream writer;
     private final ObjectInputStream reader;
@@ -53,9 +53,9 @@ public class ServerSocketTask implements Runnable, Serializable{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
+                closeResources();
             }
-            closeResources();
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         } }
