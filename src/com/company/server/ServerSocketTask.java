@@ -14,7 +14,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
-
+/**
+ * Original file created by PR of HSRW
+ * Edited by Group 2 for DS Typera project WS20/21
+ */
 public class ServerSocketTask implements Runnable, Serializable{
     private  Socket connection;  // Create Socket
     private ArrayList<ServerSocketTask> threads1 = new ArrayList<>();

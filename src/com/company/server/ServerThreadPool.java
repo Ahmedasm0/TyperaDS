@@ -12,6 +12,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Original file created by PR of HSRW
+ * Edited by Group 2 for DS Typera project WS20/21
+ */
+
 public class ServerThreadPool {
 	public static ArrayList<ServerSocketTask> threads = new ArrayList<>();
 	public static ConcurrentHashMap<Integer, User> accounts = new ConcurrentHashMap<Integer, User>();

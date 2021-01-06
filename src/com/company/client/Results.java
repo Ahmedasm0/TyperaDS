@@ -20,6 +20,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+/**
+ * Custommonkey library is used for xml creation and comparison
+ * Jar files for the library are included in the repository
+ * in case of error please add the library to project structure
+ */
+
 public class Results implements Runnable {
     private String path=null;
     private String fileName = null;

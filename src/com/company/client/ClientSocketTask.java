@@ -15,6 +15,11 @@ import java.util.TreeMap;
 
 import static com.company.client.ClientThreadPool.input;
 
+/**
+ * Original file created by PR of HSRW
+ * Edited by Group 2 for DS Typera project WS20/21
+ */
+
 public class ClientSocketTask implements Runnable{
 
     private Socket connection;  //Create Socket
