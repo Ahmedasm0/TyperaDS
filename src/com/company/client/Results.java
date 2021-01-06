@@ -21,7 +21,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 /**
- * Custommonkey library is used for xml creation and comparison
+ * Custommonkey library is used for xml comparisons
  * Jar files for the library are included in the repository
  * in case of error please add the library to project structure
  */
