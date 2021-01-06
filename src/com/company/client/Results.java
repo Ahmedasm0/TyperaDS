@@ -21,7 +21,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 /**
- * Custommonkey library is used for xml comparisons
+ * Custommonkey library is used for xml creation and comparison
  * Jar files for the library are included in the repository
  * in case of error please add the library to project structure
  */
@@ -42,11 +42,11 @@ public class Results implements Runnable {
         path = "C:/Users/Ahmed/IdeaProjects/Idea/src/com/company/server/texts/" + fileName + ".xml";
         this.script = script;
         this.scriptNum = scriptNum;
-        paths.add("C:/Users/Ahmed/IdeaProjects/Idea/src/com/company/server/texts/text1.xml");
-        paths.add("C:/Users/Ahmed/IdeaProjects/Idea/src/com/company/server/texts/text2.xml");
-        paths.add("C:/Users/Ahmed/IdeaProjects/Idea/src/com/company/server/texts/text3.xml");
-        paths.add("C:/Users/Ahmed/IdeaProjects/Idea/src/com/company/server/texts/text4.xml");
-        paths.add("C:/Users/Ahmed/IdeaProjects/Idea/src/com/company/server/texts/text5.xml");
+        paths.add("text1.xml");
+        paths.add("text2.xml");
+        paths.add("text3.xml");
+        paths.add("text4.xml");
+        paths.add("text5.xml");
         System.out.println("Constructor");
 
     }
